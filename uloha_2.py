@@ -10,20 +10,28 @@ delka = []
 if slova[0] and slova[1] in text:
     if slova[0] == slova[1]:
         print('Stejná slova')
-    else: 
-        while slova[0] in text:
-            indexy.append([text.index(slova[0]), 'slovo_0'])
-            text[text.index(slova[0])] = slova[0] + slova[0]
-        while slova[1] in text:
-            indexy.append([text.index(slova[1]), 'slovo_1'])
-            text[text.index(slova[1])] = slova[1] + slova[1]
-        indexy.sort()
-        i = 0
-        while i+1 < len(indexy):
-            if indexy[i][-1] != indexy[i+1][-1]:
-                delka.append(indexy[i+1][0]-indexy[i][0]-1)
-                i = i + 1
+    else:
+        j = 0
+        while j < len(text):
+            if text[j] == slova[0]:
+                indexy.append([text.index(slova[0]), slova[0]])
+                text[text.index(slova[0])] = slova[0] + slova[0]
+                j = j + 1
+            elif text[j] == slova[1]:
+                indexy.append([text.index(slova[1]), slova[1]])
+                text[text.index(slova[1])] = slova[1] + slova[1]
+                j = j + 1
+            else:
+                j = j + 1
+        else:
+            i = 0
+            while i+1 < len(indexy):
+                if indexy[i][-1] != indexy[i+1][-1]:
+                    delka.append(indexy[i+1][0]-indexy[i][0]-1)
+                    i = i + 1
+                else:
+                    i = i + 1
 else:
     print('Slova nejsou v textu!')
 
-print(f"{slova[0]} a {slova[1]} jsou od sebe {min(delka)} slov daleko")
+print(f"{slova[0]} a {slova[1]} jsou od sebe alespoň {min(delka)} slov daleko")
